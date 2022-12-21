@@ -69,8 +69,21 @@ public class JpaMain {
 //            em.persist(member2);
 
             // 엔티티 수정(영속)
+//            Member member = em.find(Member.class, 150L);
+//            member.setName("ZZZZZZ");
+
+            // 플러시
+//            Member member = new Member(200L, "member200");
+//            em.persist(member);
+
+            // 준영속
             Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZZZ");
+            member.setName("AAAAA");
+
+//            em.detach(member);  // 이것만 초기화
+            em.clear(); // 통채로 초기화
+
+            em.flush();
 
             System.out.println("==========================");
 
