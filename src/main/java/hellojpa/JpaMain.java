@@ -77,16 +77,23 @@ public class JpaMain {
 //            em.persist(member);
 
             // 준영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
+//            Member member = em.find(Member.class, 150L);
+//            member.setName("AAAAA");
 
 //            em.detach(member);  // 이것만 초기화
-            em.clear(); // 통채로 초기화
+//            em.clear(); // 통채로 초기화
 
-            em.flush();
+//            em.flush();
 
+//            System.out.println("==========================");
+
+            Member member = new Member();
+//            member.setId("ID_3L");
+            member.setUsername("C");
             System.out.println("==========================");
-
+            em.persist(member);
+            System.out.println("member.getId() = " + member.getId());
+            System.out.println("==========================");
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
