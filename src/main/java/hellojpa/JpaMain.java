@@ -87,13 +87,68 @@ public class JpaMain {
 
 //            System.out.println("==========================");
 
+//            Member member = new Member();
+////            member.setId("ID_3L");
+//            member.setUsername("C");
+//            System.out.println("==========================");
+//            em.persist(member);
+//            System.out.println("member.getId() = " + member.getId());
+//            System.out.println("==========================");
+
+//            Team team = new Team();
+//            team.setName("TeamA");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("member1");
+////            member.setTeamId(team.getId());
+//            member.changeTeam(team);
+//
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear();
+
+            // team 조회
+//            Member findMember = em.find(Member.class, member.getId());
+////            Long findTeamId = findMember.getTeamId();
+////            Team findTeam = em.find(Team.class, findTeamId);
+//            Team findTeam = findMember.getTeam();
+//            System.out.println("findTeam.getName() = " + findTeam.getName());
+
+            // 수정
+//            Team newTeam = em.find(Team.class, 100L);
+//            findMember.setTeam(newTeam);
+
+//            List<Member> members = findMember.getTeam().getMembers();
+//
+//            for (Member m : members) {
+//                System.out.println("m = " + m.getUsername());
+//            }
+
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+            
             Member member = new Member();
-//            member.setId("ID_3L");
-            member.setUsername("C");
-            System.out.println("==========================");
+            member.setUsername("member1");
             em.persist(member);
-            System.out.println("member.getId() = " + member.getId());
-            System.out.println("==========================");
+            
+            team.addMember(member);
+            
+            em.flush();
+            em.clear();
+            
+            Team findTeam = em.find(Team.class, team.getId());
+            List<Member> members = findTeam.getMembers();
+
+            System.out.println("==================");
+//            for (Member m : members) {
+//                System.out.println("m = " + m.getUsername());
+//            }
+            System.out.println("members = " + findTeam);
+            System.out.println("==================");
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
