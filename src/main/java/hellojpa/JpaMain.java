@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -160,19 +161,29 @@ public class JpaMain {
 //
 //            em.persist(team);
 
-            Movie movie = new Movie();
-            movie.setDirector("aaaa");
-            movie.setActor("bbb");
-            movie.setName("응애");
-            movie.setPrice(10000);
+//            Movie movie = new Movie();
+//            movie.setDirector("aaaa");
+//            movie.setActor("bbb");
+//            movie.setName("응애");
+//            movie.setPrice(10000);
+//
+//            em.persist(movie);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Item item = em.find(Item.class, movie.getId());
+//            System.out.println("findMovie = " + item);
 
-            em.persist(movie);
+            Member member = new Member();
+            member.setUsername("user1");
+            member.setCreatedBy("kim");
+            member.setCreatedDate(LocalDateTime.now());
+
+            em.persist(member);
 
             em.flush();
             em.clear();
-
-            Item item = em.find(Item.class, movie.getId());
-            System.out.println("findMovie = " + item);
 
             tx.commit();
         } catch (Exception e) {
