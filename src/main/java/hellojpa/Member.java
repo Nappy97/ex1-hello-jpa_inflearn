@@ -28,8 +28,9 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME")
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)  // 다대일 양방향(읽기 전용)
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)  // 다대일 양방향(읽기 전용)
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
 //    @Column(name = "TEAM_ID")

@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
 
@@ -209,29 +210,62 @@ public class JpaMain {
 //            System.out.println("findMember.username = " + findMember.getUsername());
 
 
-            Member member1 = new Member();
-            member1.setUsername("member1");
-            em.persist(member1);
+//            Member member1 = new Member();
+//            member1.setUsername("member1");
+//            em.persist(member1);
 
 //            Member member2 = new Member();
 //            member2.setUsername("member2");
 //            em.persist(member2);
 
-            em.flush();
-            em.clear();
+//            em.flush();
+//            em.clear();
 
-            Member m1 = em.getReference(Member.class, member1.getId());
+//            Member m1 = em.getReference(Member.class, member1.getId());
 //            Member m2 = em.getReference(Member.class, member2.getId());
 
 //            logic(m1, m2);
 
-            System.out.println("m1 = " + m1.getClass());
+//            System.out.println("m1 = " + m1.getClass());
 
-            Member reference = em.find(Member.class, member1.getId());
-            System.out.println("reference = " + reference.getClass());
+//            Member reference = em.find(Member.class, member1.getId());
+//            System.out.println("reference = " + reference.getClass());
 
-            System.out.println("a == a: " + (m1 == reference));
+//            System.out.println("a == a: " + (m1 == reference));
 
+
+            // 즉시 지연 로딩
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Team team2 = new Team();
+            team2.setName("teamB");
+            em.persist(team2);
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setTeam(team);
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            member2.setTeam(team2);
+            em.persist(member2);
+
+            em.flush();
+            em.clear();
+
+//            Member m = em.find(Member.class, member1.getId());
+//
+//            System.out.println("m = " + m.getTeam().getClass());
+//
+//            System.out.println("==================");
+//            System.out.println("teamName = " + m.getTeam().getName());  // 초기화
+//            System.out.println("==================");
+
+            List<Member> members = em.createQuery("select m from  Member m join fetch m.team", Member.class)
+                    .getResultList();
 
             tx.commit();
         } catch (Exception e) {
