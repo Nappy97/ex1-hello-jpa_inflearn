@@ -268,23 +268,34 @@ public class JpaMain {
 //                    .getResultList();
 
             // 영속성 전이(CASCADE)
-            Child child1 = new Child();
-            Child child2 = new Child();
+//            Child child1 = new Child();
+//            Child child2 = new Child();
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
+//            Parent parent = new Parent();
+//            parent.addChild(child1);
+//            parent.addChild(child2);
 
-            em.persist(parent);
+//            em.persist(parent);
 //            em.persist(child1);
 //            em.persist(child2);
 
-            em.flush();
-            em.clear();
+//            em.flush();
+//            em.clear();
 
-            Parent findParent = em.find(Parent.class, parent.getId());
+//            Parent findParent = em.find(Parent.class, parent.getId());
 //            findParent.getChildList().remove(0);
-            em.remove(findParent);
+//            em.remove(findParent);
+
+
+            // 임베디드
+//            Member member = new Member();
+//            member.setUsername("hello");
+//            member.setHomeAddress(new Address("city", "street", "10000"));
+//            member.setWorkPeriod(new Period());
+//
+//            em.persist(member);
+
+            // 값 타입과 불변객체
 
             tx.commit();
         } catch (Exception e) {

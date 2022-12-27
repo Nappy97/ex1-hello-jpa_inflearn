@@ -14,7 +14,7 @@ import java.util.List;
 //        name = "MEMBER_SEQ_GENERATOR",
 //        sequenceName = "MEMBER_SEQ", //매핑할 데이터베이스 시퀀스 이름
 //        initialValue = 1, allocationSize = 1)
-public class Member extends BaseEntity{
+public class Member /*extends BaseEntity*/ {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
@@ -28,10 +28,10 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME")
     private String username;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)  // 다대일 양방향(읽기 전용)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+//    @JoinColumn(name = "TEAM_ID")
+//    private Team team;
 
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
@@ -46,6 +46,30 @@ public class Member extends BaseEntity{
 //
 //    @OneToMany(mappedBy = "member")
 //    private List<MemberProduct> memberProducts = new ArrayList<>();
+
+    // 기간 Period
+//    private LocalDateTime startDate;
+//    private LocalDateTime endDate;
+    @Embedded
+    private Period workPeriod;
+
+    // 주소
+//    private String city;
+//    private String street;
+//    private String zipcode;
+    @Embedded
+    private Address homeAddress;
+
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "city",
+//                    column = @Column(name = "WORK_CITY")),
+//            @AttributeOverride(name = "street",
+//                    column = @Column(name = "WORK_STREET")),
+//            @AttributeOverride(name = "zipcode",
+//                    column = @Column(name = "WORK_ZIPCODE"))
+//    })
+//    private Address workAddress;
 
     public Long getId() {
         return id;
@@ -63,13 +87,19 @@ public class Member extends BaseEntity{
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
 
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 }
